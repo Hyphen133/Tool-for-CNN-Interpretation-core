@@ -19,7 +19,8 @@ class GraphPrinter():
 
 
     def extract_nodes_and_edges(self, root_node, graph_nodes, graph_edges):
-        graph_nodes.append(str(root_node.id) + ' [href="' + self.link_attacher.get_sublink(root_node.id) + '", ' + 'label="' + root_node.function_name + '",' + self.coloring_tool.dot_color_attributes(root_node) + ']' )
+
+        graph_nodes.append(str(root_node.id) + ' [href="' + self.link_attacher.get_sublink(root_node) + '", ' + 'label="' + root_node.function_name + '",' + self.coloring_tool.dot_color_attributes(root_node) + ']' )
 
         for child in root_node.child_nodes:
             edge = str(child.id) + "->" + str(root_node.id)
@@ -38,8 +39,11 @@ class LinkAttacher():
         super().__init__()
         self.link_base_url = link_base_url
 
-    def get_sublink(self, node_id):
-        return self.link_base_url + "/" + str(node_id)
+    def get_sublink(self, node):
+        if node.associated_module != None:
+            return self.link_base_url + "/" + str(node.id)
+        else:
+            return ""
 
 
 #
