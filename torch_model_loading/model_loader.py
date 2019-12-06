@@ -6,3 +6,7 @@ class ModelLoader():
         model_file = SourceFileLoader('conf', filepath).load_module()
         return model_file.model
 
+    def load_input_shape_from_external_file(self,filepath):
+        model_file = SourceFileLoader('conf', filepath).load_module()
+        return model_file.input_shape
+
