@@ -6,7 +6,7 @@ class GraphUtils():
         for node in function_node.child_nodes:
             GraphUtils.flatten_function_nodes(node, function_node_list)
 
-    # Sample call where model is pytorch model
+    # Sample call where torch_model_loading is pytorch torch_model_loading
     # module_list = []
     # self.flatten_modules(mode l, module_list)
     @staticmethod

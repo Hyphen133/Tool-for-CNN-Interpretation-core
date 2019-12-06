@@ -66,7 +66,7 @@ class GraphExtractor():
     #
     #   Sample call
     #         module_list = []
-    #         flatten_modules(model, module_list)
+    #         flatten_modules(torch_model_loading, module_list)
     #         function_nodes_list = []
     #         flatten_function_nodes(parent_node, function_nodes_list)
     #
@@ -90,7 +90,7 @@ class GraphExtractor():
 
 
     #
-    #   Since the model is linear without branching both variable maping and name mapping can be used
+    #   Since the torch_model_loading is linear without branching both variable maping and name mapping can be used
     #   The preffered one should be named mappping with variables
     def map_modules_with_nodes_without_branching(self, parent_node, model, grad_fn):
         function_nodes_list = []

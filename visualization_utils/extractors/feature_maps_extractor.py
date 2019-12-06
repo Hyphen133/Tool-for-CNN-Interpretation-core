@@ -1,4 +1,4 @@
-from vizualization_utils.hook_utils import HookUtils
+from visualization_utils.hook_utils import HookUtils
 
 
 class InputOutputFeatureMapsExtractor:

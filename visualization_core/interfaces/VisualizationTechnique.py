@@ -4,8 +4,8 @@ class VisualizationTechnique():
         super().__init__()
         self.name = name
 
-    # Checks if loaded model can be put into this technique
-    # By convention model should be pretrained and ready for the visualization task
+    # Checks if loaded torch_model_loading can be put into this technique
+    # By convention torch_model_loading should be pretrained and ready for the visualization task
     def is_applicable_for(self, model):
         return True
 

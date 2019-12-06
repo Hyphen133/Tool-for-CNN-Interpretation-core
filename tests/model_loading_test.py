@@ -1,6 +1,6 @@
 import unittest
 
-from model.model_loader import ModelLoader
+from torch_model_loading.model_loader import ModelLoader
 
 
 class ModelLoadingTests(unittest.TestCase):
