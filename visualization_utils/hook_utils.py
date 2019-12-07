@@ -2,7 +2,7 @@
 
 class HookUtils():
     @staticmethod
-    def deep_hook_register(self, model, hook, mode = 'forward'):
+    def deep_hook_register(model, hook, mode = 'forward'):
         if len(model._modules) > 0:
             for module in model._modules:
                 HookUtils.deep_hook_register(model._modules[module],hook)

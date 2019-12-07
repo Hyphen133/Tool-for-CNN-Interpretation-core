@@ -16,3 +16,10 @@ class GraphUtils():
                 GraphUtils.flatten_modules(module._modules[mod], module_list)
         else:
             module_list.append(module)
+
+
+    @staticmethod
+    def find_node_by_id(parent_node,id):
+        nodes = []
+        GraphUtils.flatten_function_nodes(parent_node, nodes)
+        return [x for x in nodes if x.id == id][0]

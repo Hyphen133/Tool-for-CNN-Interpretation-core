@@ -4,7 +4,7 @@ from plugins_management.plugin_repository import get_plugin_repository
 class PluginSelector():
     @staticmethod
     def get_all_plugin_names():
-        return get_plugin_repository().get_all_plugins()
+        return [plugin.name for plugin in get_plugin_repository().get_all_plugins()]
 
     @staticmethod
     def get_selected_plugins(name_list):
