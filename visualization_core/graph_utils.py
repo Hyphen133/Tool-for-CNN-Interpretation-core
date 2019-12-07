@@ -22,4 +22,4 @@ class GraphUtils():
     def find_node_by_id(parent_node,id):
         nodes = []
         GraphUtils.flatten_function_nodes(parent_node, nodes)
-        return [x for x in nodes if x.id == id][0]
+        return [x for x in nodes if x.id == int(id)][0]

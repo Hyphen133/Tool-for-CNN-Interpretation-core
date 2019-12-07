@@ -4,7 +4,7 @@ class IdGenerator():
 
     def __init__(self) -> None:
         super().__init__()
-        self.current_id = -1
+        self.current_id = 10
 
     def reset(self):
         self.current_id = 0
