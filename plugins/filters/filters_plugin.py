@@ -1,10 +1,11 @@
 from visualization_core.interfaces.VisualizationTechnique import GraphVisualizationTechnique
+from visualization_utils.extractors.filters_extractor import FilterExtractor
 from visualization_utils.extractors.gradient_extractor import GradientExtractor
 
 
-class OutputGradientMapsPlugin(GraphVisualizationTechnique):
+class FiltersPlugin(GraphVisualizationTechnique):
     def __init__(self) -> None:
-        super().__init__('output_gradient_maps')
+        super().__init__('filters')
 
     def is_applicable_for(self, model):
         return True
@@ -13,9 +14,9 @@ class OutputGradientMapsPlugin(GraphVisualizationTechnique):
     def get_module_visualizations_list_map(self,model,image_tensor):
         super().get_module_visualizations_list_map(model,image_tensor)
 
-        map_extactor = GradientExtractor(model)
-        map_extactor.extract(image_tensor)
+        filters_extactor = FilterExtractor(model)
+        filters_extactor.extract()
 
-        module_input_gradient_maps_map, module_output_gradient_maps_map = map_extactor.get_module_output_and_output_gradient_map()
+        filter_map = filters_extactor.get_module_filters_map()
 
-        return module_output_gradient_maps_map
+        return filter_map

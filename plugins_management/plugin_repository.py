@@ -3,7 +3,9 @@ import sys
 
 from plugins.feature_maps.input_feature_maps_plugin import InputFeatureMapsPlugin
 from plugins.feature_maps.output_feature_maps_plugin import OutputFeatureMapsPlugin
-
+from plugins.filters.filters_plugin import FiltersPlugin
+from plugins.gradient_maps.output_gradient_maps_plugin import OutputGradientMapsPlugin
+from plugins.gradient_maps.input_gradient_maps_plugin import InputGradientMapsPlugin
 
 class PluginRepository():
     _instance = None
@@ -17,6 +19,9 @@ class PluginRepository():
     def scan_plugins_package(self):
         self.add_plugin(InputFeatureMapsPlugin())
         self.add_plugin(OutputFeatureMapsPlugin())
+        self.add_plugin(InputGradientMapsPlugin())
+        self.add_plugin(OutputGradientMapsPlugin())
+        self.add_plugin(FiltersPlugin())
 
     def add_plugin(self, plugin):
         self.plugins_map[plugin.name] = plugin
