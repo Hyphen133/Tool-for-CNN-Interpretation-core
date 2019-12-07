@@ -1,1 +1,1 @@
-from plugins.feature_maps import FeatureMapsPlugin
+from plugins.feature_maps import input_feature_maps_plugin

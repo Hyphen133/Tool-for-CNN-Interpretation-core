@@ -7,8 +7,7 @@ class GradientExtractor:
         self.module_input_gradient_map = None
         self.module_output_gradient_map = None
         self.model = model
-        hook_utils = HookUtils()
-        hook_utils.deep_hook_register(model, self.gradient_hook, 'backward')
+        HookUtils.deep_hook_register(model, self.gradient_hook, 'backward')
 
     def extract(self, input_image):
         self.module_input_gradient_map = {}

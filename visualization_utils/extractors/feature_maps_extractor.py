@@ -7,8 +7,7 @@ class InputOutputFeatureMapsExtractor:
         self.module_input_feature_maps_map = None
         self.module_output_feature_maps_map = None
         self.model = model
-        hook_utils = HookUtils()
-        hook_utils.deep_hook_register(model, self.feature_maps_hook, 'forward')
+        HookUtils.deep_hook_register(model, self.feature_maps_hook, 'forward')
 
     def extract(self, input_image):
         self.module_input_feature_maps_map = {}

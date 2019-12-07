@@ -13,7 +13,6 @@ class HookUtilsTest(unittest.TestCase):
     def test_should_register_hook(self):
         model = torchvision.models.AlexNet()
 
-        hook_utils = HookUtils()
-        hook_utils.deep_hook_register(model, self.hook_fn)
+        HookUtils.deep_hook_register(model, self.hook_fn)
 
         self.assertEquals(len(model._modules['features']._modules['0']._forward_hooks), 1)
