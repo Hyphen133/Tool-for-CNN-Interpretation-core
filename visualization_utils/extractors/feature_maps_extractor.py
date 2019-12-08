@@ -21,5 +21,13 @@ class InputOutputFeatureMapsExtractor:
             return self.module_input_feature_maps_map, self.module_output_feature_maps_map
 
     def feature_maps_hook(self, module, input, output):
-        self.module_input_feature_maps_map[module] = input[0]
-        self.module_output_feature_maps_map[module] = output
+        if module not in self.module_input_feature_maps_map.keys():
+            self.module_input_feature_maps_map[module] = []
+        if module not in self.module_output_feature_maps_map:
+            self.module_output_feature_maps_map[module] = []
+
+        for i in range(input[0].shape[1]):
+            self.module_input_feature_maps_map[module].append(input[0][0][i])
+
+        for i in range(output.shape[1]):
+            self.module_output_feature_maps_map[module].append(output[0][i])

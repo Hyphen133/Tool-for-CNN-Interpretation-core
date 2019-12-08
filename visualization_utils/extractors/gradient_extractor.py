@@ -21,5 +21,13 @@ class GradientExtractor:
             return self.module_input_gradient_map, self.module_output_gradient_map
 
     def gradient_hook(self, module, input, output):
-        self.module_input_gradient_map[module] = input[0]
-        self.module_output_gradient_map[module] = output
+        if module not in self.module_input_gradient_map.keys():
+            self.module_input_gradient_map[module] = []
+        if module not in self.module_output_gradient_map:
+            self.module_output_gradient_map[module] = []
+
+        for i in range(input[0].shape[1]):
+            self.module_input_gradient_map[module].append(input[0][0][i])
+
+        for i in range(output.shape[1]):
+            self.module_output_gradient_map[module].append(output[0][i])
