@@ -124,7 +124,8 @@ class GraphExtractor():
 
         for module in module_list:
             for node in function_nodes_list:
-                if node.function_name.lower().__contains__(module.__class__.__name__.lower()):
+                if node.function_name.lower().__contains__(module.__class__.__name__.lower()) and node.associated_module == None:
+                    node.associated_module = module
                     function_node_modules_map[node] = module
                     break
 
