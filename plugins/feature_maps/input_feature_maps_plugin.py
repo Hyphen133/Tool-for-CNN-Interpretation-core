@@ -1,4 +1,4 @@
-from visualization_core.interfaces.VisualizationTechnique import GraphVisualizationTechnique
+from visualization_core.interfaces.VisualizationTechnique import GraphVisualizationTechnique, PrintingMode
 from visualization_utils.extractors.feature_maps_extractor import InputOutputFeatureMapsExtractor
 
 

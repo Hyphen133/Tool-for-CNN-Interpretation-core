@@ -1,3 +1,6 @@
+from enum import Enum
+
+
 class VisualizationTechnique():
 
     def __init__(self, name) -> None:
@@ -9,6 +12,13 @@ class VisualizationTechnique():
     def is_applicable_for(self, model):
         return True
 
+    def get_printing_mode(self):
+        return PrintingMode.NORMAL
+
+
+class PrintingMode(Enum):
+    NORMAL = 0
+    HEAPMAP = 1
 
 class GraphVisualizationTechnique(VisualizationTechnique):
     def __init__(self, name) -> None:

@@ -1,4 +1,4 @@
-from visualization_core.interfaces.VisualizationTechnique import GraphVisualizationTechnique
+from visualization_core.interfaces.VisualizationTechnique import GraphVisualizationTechnique, PrintingMode
 from visualization_utils.extractors.gradient_extractor import GradientExtractor
 
 
@@ -19,3 +19,6 @@ class OutputGradientMapsPlugin(GraphVisualizationTechnique):
         module_input_gradient_maps_map, module_output_gradient_maps_map = map_extactor.get_module_input_and_output_gradient_map()
 
         return module_output_gradient_maps_map
+
+    def get_printing_mode(self):
+        return PrintingMode.HEAPMAP
