@@ -1,3 +1,6 @@
+import io
+
+from PIL import Image
 from torchvision import transforms
 
 import matplotlib.pyplot as plt
@@ -20,8 +23,8 @@ def plot_tensor_with_heatmap(pil_img, pixel_weight_array):
     add_heatmap(np.asarray(pil_img), pixel_weight_array, display=True)
 
 
-def save_tensor_with_heatmap(pil_img, pixel_weight_array, filepath):
-    add_heatmap(np.asarray(pil_img), pixel_weight_array, display=False, axis='off', save=filepath)
+def save_tensor_with_heatmap(pil_img, pixel_weight_array, filepath, cmap='viridis'):
+    add_heatmap(np.asarray(pil_img), pixel_weight_array, display=False, axis='off', save=filepath, cmap=cmap)
 
 
 def add_heatmap(image, heat_map, alpha=0.6, display=False, save=None, cmap='viridis', axis='on', verbose=False):
@@ -41,7 +44,7 @@ def add_heatmap(image, heat_map, alpha=0.6, display=False, save=None, cmap='viri
     fig = plt.imshow(image, interpolation='nearest')
     fig.axes.get_xaxis().set_visible(False)
     fig.axes.get_yaxis().set_visible(False)
-    plt.imshow(255 * normalized_heat_map, alpha=alpha, cmap=cmap)
+    axes_img = plt.imshow(255 * normalized_heat_map, alpha=alpha, cmap=cmap)
 
     if display:
         plt.show()
@@ -50,3 +53,8 @@ def add_heatmap(image, heat_map, alpha=0.6, display=False, save=None, cmap='viri
         if verbose:
             print('save image: ' + save)
         plt.savefig(save, bbox_inches='tight', pad_inches=0)
+
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    return Image.open(buf)

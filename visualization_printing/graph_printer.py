@@ -20,7 +20,8 @@ class GraphPrinter():
 
     def extract_nodes_and_edges(self, root_node, graph_nodes, graph_edges):
 
-        graph_nodes.append(str(root_node.id) + ' [href="' + self.link_attacher.get_sublink(root_node) + '", ' + 'label="' + root_node.function_name + '",' + self.coloring_tool.dot_color_attributes(root_node) + ']' )
+        #target="_parent" to make links leave iframe
+        graph_nodes.append(str(root_node.id) + ' [href="' + self.link_attacher.get_sublink(root_node) + '", ' + 'label="' + root_node.function_name + '",' + self.coloring_tool.dot_color_attributes(root_node) + ' target="_parent"]' )
 
         for child in root_node.child_nodes:
             edge = str(child.id) + "->" + str(root_node.id)

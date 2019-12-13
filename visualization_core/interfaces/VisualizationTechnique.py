@@ -25,7 +25,7 @@ class GraphVisualizationTechnique(VisualizationTechnique):
         super().__init__(name)
 
     # Visualizations which can be connected with graph nodes
-    def get_module_visualizations_list_map(self, model, image_tensor):
+    def get_module_visualizations_list_map(self, model, image_tensor, class_index_vector):
         pass
 
 

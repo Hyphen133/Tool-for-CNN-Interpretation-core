@@ -11,8 +11,8 @@ class FiltersPlugin(GraphVisualizationTechnique):
         return True
 
     # Image tensor should be preporcessed
-    def get_module_visualizations_list_map(self,model,image_tensor):
-        super().get_module_visualizations_list_map(model,image_tensor)
+    def get_module_visualizations_list_map(self, model, image_tensor, class_index_vector):
+        super().get_module_visualizations_list_map(model, image_tensor,class_index_vector)
 
         filters_extactor = FilterExtractor(model)
         filters_extactor.extract()
