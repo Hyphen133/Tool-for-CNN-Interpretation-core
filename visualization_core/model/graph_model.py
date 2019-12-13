@@ -49,6 +49,17 @@ class VisualizationMaps():
         return self.map_list
 
 #Stores single map
-class SingleVisualizartionMap():
-    def __init__(self, map):
-        self.map = map
+# class SingleVisualizartionMap():
+#     def __init__(self, map):
+#         self.map = map
+
+
+class NonGraphVisualizationMapsContainer():
+    def __init__(self):
+        self.group_name_visualizations_maps_map = {}
+
+    def set_visualizations_maps(self, group_name, visualizations_maps):
+        self.group_name_visualizations_maps_map[group_name] = visualizations_maps
+
+    def set_visualizations_maps_for_group(self, group_name):
+        return self.group_name_visualizations_maps_map[group_name]

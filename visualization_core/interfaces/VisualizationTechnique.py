@@ -34,5 +34,5 @@ class NonGraphVisualizationTechnique(VisualizationTechnique):
         super().__init__(name)
 
     # Visulaizations not connected with graph nodes
-    def get_additional_visualizations_maps(self, model, image_tensor):
+    def get_additional_visualizations_maps(self, model, image_tensor, class_index_vector):
         pass
