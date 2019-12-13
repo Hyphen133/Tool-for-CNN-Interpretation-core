@@ -30,5 +30,5 @@ class PluginSelector():
     @staticmethod
     def get_only_selected_nongraph_plugins_names(name_list):
         repository = get_plugin_repository()
-        nongraph_plugin_names = [plugin.name for plugin in PluginSelector.all_non_graph_visualization_plugins()]
+        nongraph_plugin_names = [plugin.name for plugin in PluginSelector.get_all_non_graph_visualization_plugins()]
         return [repository.get_plugin(name) for name in name_list if repository.get_plugin(name) in nongraph_plugin_names]
