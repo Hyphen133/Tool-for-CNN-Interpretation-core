@@ -1,38 +1,48 @@
 import torch
+from torch.nn import ReLU
 
-from visualization_core.interfaces.VisualizationTechnique import GraphVisualizationTechnique, PrintingMode
-from visualization_utils.extractors.gradient_extractor import GradientExtractor
+from visualization_core.interfaces.VisualizationTechnique import GraphVisualizationTechnique
 from visualization_utils.hook_utils import HookUtils
 
 
 class GuidedBackpropagationPlugin(GraphVisualizationTechnique):
+
     def __init__(self) -> None:
         super().__init__('guided_backpropagation')
-        self.module_forward_zeros_positions_map = {}
-        self.module_output_gradient_map = {}
+        self.module_forward_relu_outputs = {}
+        self.module_grad_outputs = {}
 
-    def is_applicable_for(self, model):
-        return True
 
-    def get_printing_mode(self):
-        return PrintingMode.NORMAL
 
-    # Image tensor should be preporcessed
+    def backward_hook(self,module, grad_in, grad_out):
+        if isinstance(module, ReLU):
+            output = torch.mul(torch.clamp(grad_in[0], min=0.0),
+                               self.gt_zero_value_replace(self.module_forward_relu_outputs[module], on_gt_zero=1))
+
+            self.module_grad_outputs[module] = output
+            return output
+
+        self.module_grad_outputs[module] = grad_out
+
+
+    def relu_forward_hook_function(self,module, ten_in, ten_out):
+        if isinstance(module, ReLU):
+            self.module_forward_relu_outputs[module] = ten_out
+
+    def gt_zero_value_replace(self, tensor, on_gt_zero):
+        res = tensor.clone()
+        res[tensor > 0] = on_gt_zero
+        return res
+
+
     def get_module_visualizations_list_map(self, model, image_tensor, class_index_vector):
-        HookUtils.deep_hook_register_for_subtype(model, self.forward_zero_positions_storing_hook, 'forward')
-        HookUtils.deep_hook_register_for_subtype(model, self.gradient_hook, 'backward')
+        HookUtils.deep_hook_register_for_subtype(model,self.relu_forward_hook_function, ReLU, 'forward')
+        HookUtils.deep_hook_register_for_subtype(model,self.backward_hook, ReLU, 'backward')
+
+        model_output = model.forward(image_tensor)
+        model.zero_grad()
+        model_output.backward(gradient=class_index_vector)
+        return self.module_grad_outputs
 
 
-    def forward_zero_positions_storing_hook(self, module, input, output):
-        if module not in self.module_forward_zeros_positions_map.keys():
-            self.module_forward_zeros_positions_map[module] = []
 
-        for i in range(output.shape[1]):
-            self.module_forward_zeros_positions_map[module].append(torch.tensor(output[0][i] >= 0, dtype=torch.float32))
-
-    def gradient_hook(self, module, input, output):
-        if module not in self.module_output_gradient_map.keys():
-            self.module_output_gradient_map[module] = []
-
-        for i in range(output.shape[1]):
-            self.module_output_gradient_map[module].append(output[0][i])

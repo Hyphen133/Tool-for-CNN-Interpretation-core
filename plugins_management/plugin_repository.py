@@ -6,7 +6,7 @@ from plugins.feature_maps.output_feature_maps_plugin import OutputFeatureMapsPlu
 from plugins.filters.filters_plugin import FiltersPlugin
 from plugins.gradient_maps.output_gradient_maps_plugin import OutputGradientMapsPlugin
 from plugins.gradient_maps.input_gradient_maps_plugin import InputGradientMapsPlugin
-from plugins.guided_backpropagation.guided_backprop_plugin import GuidedBackprop
+from plugins.guided_backpropagation.guided_backprapagation_plugin import GuidedBackpropagationPlugin
 
 
 class PluginRepository():
@@ -24,7 +24,7 @@ class PluginRepository():
         self.add_plugin(InputGradientMapsPlugin())
         self.add_plugin(OutputGradientMapsPlugin())
         self.add_plugin(FiltersPlugin())
-        self.add_plugin(GuidedBackprop())
+        self.add_plugin(GuidedBackpropagationPlugin())
 
     def add_plugin(self, plugin):
         self.plugins_map[plugin.name] = plugin

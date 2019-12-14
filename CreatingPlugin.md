@@ -34,7 +34,7 @@ The other category is for additional visualization that are not connected to spe
     </p>
 </li>
 
-</li>   Enjoy your visualizations
+</li>   Enjoy your visualizations !!!
     
 </li>
 </ol>
@@ -62,7 +62,7 @@ The other category is for additional visualization that are not connected to spe
     </p>
 </li>
 
-</li>   
+</li>   Enjoy your visualizations !!!
     
 </li>
 </ol>
