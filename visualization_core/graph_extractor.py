@@ -1,6 +1,7 @@
 from visualization_core.graph_utils import GraphUtils
 from visualization_core.model.graph_model import FunctionNode
 
+
 #
 #   This class got functions to return node graph and mapping to modules
 #
@@ -11,8 +12,8 @@ class GraphExtractor():
     #
     #   Side effect: enriches root_node with tree structure
     #
-    def create_graph_and_associate_with_mapping(self,root_node, next_functions, model, grad_fn):
-        self.extract_gradient_functions_graph(root_node,next_functions)
+    def create_graph_and_associate_with_mapping(self, root_node, next_functions, model, grad_fn):
+        self.extract_gradient_functions_graph(root_node, next_functions)
 
         if self.is_node_structure_without_branching(root_node):
             map = self.map_modules_with_nodes_without_branching(root_node, model, grad_fn)
@@ -21,7 +22,7 @@ class GraphExtractor():
             GraphUtils.flatten_modules(model, module_list)
             function_nodes_list = []
             GraphUtils.flatten_function_nodes(root_node, function_nodes_list)
-            map = self.map_function_nodes_to_modules_by_variables(module_list,function_nodes_list)
+            map = self.map_function_nodes_to_modules_by_variables(module_list, function_nodes_list)
 
         for function_node in map.keys():
             function_node.associated_module = map[function_node]
@@ -51,13 +52,18 @@ class GraphExtractor():
             else:
                 if function_object != None:
                     if function_object not in backwards_function_node_map:
-                        function_node = FunctionNode(function_object.__class__.__name__)
+                        function_node = FunctionNode(
+                            self.extract_function_name_from_classname(function_object.__class__.__name__))
                         backwards_function_node_map[function_object] = function_node
                     else:
                         function_node = backwards_function_node_map[function_object]
 
                     parent_node.add_child(function_node)
-                    self.extract_gradient_functions_graph(function_node, function_object.next_functions, backwards_function_node_map)
+                    self.extract_gradient_functions_graph(function_node, function_object.next_functions,
+                                                          backwards_function_node_map)
+
+    def extract_function_name_from_classname(self, classname):
+        return classname.split('Backward')[0]
 
     #   Gets flattened module list
     #   Get flattened list of function nodes
@@ -87,7 +93,6 @@ class GraphExtractor():
                      function_nodes_parameters_map[node] == module_parameters_map[m]][0]
 
         return function_node_modules_map
-
 
     #
     #   Since the torch_model_loading is linear without branching both variable maping and name mapping can be used
@@ -124,13 +129,13 @@ class GraphExtractor():
 
         for module in module_list:
             for node in function_nodes_list:
-                if node.function_name.lower().__contains__(module.__class__.__name__.lower()) and node.associated_module == None:
+                if node.function_name.lower().__contains__(
+                        module.__class__.__name__.lower()) and node.associated_module == None:
                     node.associated_module = module
                     function_node_modules_map[node] = module
                     break
 
         return function_node_modules_map
-
 
     def is_node_structure_with_branching(self, parent_node):
         if len(parent_node.child_nodes) == 0:
@@ -152,4 +157,3 @@ class GraphExtractor():
             map[key] = first_map[key]
 
         return map
-
