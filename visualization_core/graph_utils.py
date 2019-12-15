@@ -30,4 +30,5 @@ class GraphUtils():
             for module in model._modules:
                 GraphUtils.deep_freezing(model._modules[module])
         else:
-            model.requires_grad = False
+            for param in model._parameters:
+                model._parameters[param].requires_grad = False
