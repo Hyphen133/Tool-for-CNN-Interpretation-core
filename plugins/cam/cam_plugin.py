@@ -1,0 +1,3 @@
+
+def ClassActivationMapPlugin(NonGraphVisualization):
+    pass

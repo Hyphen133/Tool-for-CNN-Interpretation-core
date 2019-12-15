@@ -27,11 +27,3 @@ class HookUtils():
                     model.register_backward_hook(hook)
                 else:
                     raise ValueError('Wrong mode')
-
-    @staticmethod
-    def deep_freezing(model):
-        if len(model._modules) > 0:
-            for module in model._modules:
-                HookUtils.deep_freezing(model._modules[module])
-        else:
-            model.requires_grad = False

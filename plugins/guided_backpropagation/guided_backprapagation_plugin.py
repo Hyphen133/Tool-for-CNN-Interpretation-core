@@ -2,7 +2,7 @@ import torch
 from torch.nn import ReLU
 
 from visualization_core.interfaces.VisualizationTechnique import GraphVisualizationTechnique
-from visualization_utils.ConversionUtils import ConversionUtils
+from visualization_utils.conversion_utils import ConversionUtils
 from visualization_utils.hook_utils import HookUtils
 
 
