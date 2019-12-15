@@ -2,6 +2,7 @@ import torch
 from torch.nn import ReLU
 
 from visualization_core.interfaces.VisualizationTechnique import GraphVisualizationTechnique
+from visualization_utils.ConversionUtils import ConversionUtils
 from visualization_utils.hook_utils import HookUtils
 
 
@@ -12,17 +13,15 @@ class GuidedBackpropagationPlugin(GraphVisualizationTechnique):
         self.module_forward_relu_outputs = {}
         self.module_grad_outputs = {}
 
-
-
-    def backward_hook(self,module, grad_in, grad_out):
+    def backward_hook(self, module, grad_in, grad_out):
         if isinstance(module, ReLU):
             output = torch.mul(torch.clamp(grad_in[0], min=0.0),
                                self.gt_zero_value_replace(self.module_forward_relu_outputs[module], on_gt_zero=1))
 
-            self.module_grad_outputs[module] = output
+            self.module_grad_outputs[module] = ConversionUtils.convert_3d_map_to_list_of_2d_maps(output[0])
             return output
 
-        self.module_grad_outputs[module] = grad_out
+        self.module_grad_outputs[module] = ConversionUtils.convert_3d_map_to_list_of_2d_maps(grad_in[0][0])
 
 
     def relu_forward_hook_function(self,module, ten_in, ten_out):

@@ -23,7 +23,7 @@ The other category is for additional visualization that are not connected to spe
         return PrintingMode.HEAPMAP</pre>
     </p>
 </li>
-</li> Override method <code>get_module_visualizations_list_map</code> to return maps in format {module:[list of 3d tensor maps]}
+</li> Override method <code>get_module_visualizations_list_map</code> to return maps in format {module:[list of 2d tensor maps]}
     <p>
     <pre>    def get_module_visualizations_list_map(self, model, image_tensor, class_index_vector):
         ...
@@ -55,7 +55,7 @@ The other category is for additional visualization that are not connected to spe
         return PrintingMode.HEAPMAP</pre>
     </p>
 </li>
-</li> Override method <code>get_additional_visualizations_maps</code> to return [list of 3d tensor maps]
+</li> Override method <code>get_additional_visualizations_maps</code> to return [list of 2d tensor maps]
     <p>
     <pre>    def get_additional_visualizations_maps(self, model, image_tensor, class_index_vector):
         return maps_list</pre>

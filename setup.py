@@ -5,7 +5,7 @@ import setuptools
 
 setuptools.setup(
      name='cnntoolcore',
-     version='0.1.14',
+     version='0.2.4',
    #   long_description=long_description,
    # long_description_content_type="text/markdown",
    #   url="https://github.com/Hyphen133/Tool-for-CNN-Interpretation-core",
