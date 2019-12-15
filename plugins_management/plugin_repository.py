@@ -1,6 +1,7 @@
 import inspect
 import sys
 
+from plugins.cam.cam_plugin import ClassActivationMapPlugin
 from plugins.feature_maps.input_feature_maps_plugin import InputFeatureMapsPlugin
 from plugins.feature_maps.output_feature_maps_plugin import OutputFeatureMapsPlugin
 from plugins.filters.filters_plugin import FiltersPlugin
@@ -25,6 +26,7 @@ class PluginRepository():
         self.add_plugin(OutputGradientMapsPlugin())
         self.add_plugin(FiltersPlugin())
         self.add_plugin(GuidedBackpropagationPlugin())
+        self.add_plugin(ClassActivationMapPlugin())
 
     def add_plugin(self, plugin):
         self.plugins_map[plugin.name] = plugin

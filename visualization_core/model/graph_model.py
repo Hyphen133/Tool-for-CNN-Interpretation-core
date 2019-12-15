@@ -63,3 +63,6 @@ class NonGraphVisualizationMapsContainer():
 
     def set_visualizations_maps_for_group(self, group_name):
         return self.group_name_visualizations_maps_map[group_name]
+
+    def get_visualization_maps(self, group_name):
+        return self.group_name_visualizations_maps_map[group_name]
