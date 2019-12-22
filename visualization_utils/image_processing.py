@@ -15,3 +15,7 @@ class ImageProcessing:
             ToTensor()
         ])
         return transform(pil_image)
+
+    @staticmethod
+    def get_list_off_all_colors(pil_img):
+        return set(pil_img.getdata())
