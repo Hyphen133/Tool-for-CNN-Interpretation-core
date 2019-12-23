@@ -1,5 +1,6 @@
 import math
 import numpy as np
+from PIL import Image
 
 
 class BoundingBoxUtils:
@@ -10,31 +11,23 @@ class BoundingBoxUtils:
         im = pil_image.convert('RGB')
         pixVals = set(im.getdata())
         img = np.array(im)
+        color_box_map = {'#%02x%02x%02x' % rgb_tuple: [math.inf, -1, math.inf, -1] for rgb_tuple in pixVals}
 
-        # x1,x2,y1,y2
-        rectangles = {}
-        for pixel in pixVals:
-            x1 = math.inf
-            x2 = -1
-            y1 = math.inf
-            y2 = -1
+        for y in range(img.shape[0]):
+            for x in range(img.shape[1]):
+                current_pixel = '#%02x%02x%02x' % tuple(img[y][x])
+                x1, x2, y1, y2 = color_box_map[current_pixel]
 
-            for y in range(img.shape[0]):
-                for x in range(img.shape[1]):
-                    if np.array_equal(img[y][x], np.array(pixel)):
-                        if x < x1:
-                            x1 = x
-                        if x > x2:
-                            x2 = x
+                if x < x1:
+                    color_box_map[current_pixel][0] = x
+                if x > x2:
+                    color_box_map[current_pixel][1] = x
+                if y < y1:
+                    color_box_map[current_pixel][2] = y
+                if y > y2:
+                    color_box_map[current_pixel][3] = y
 
-                        if y < y1:
-                            y1 = y
-                        if y > y2:
-                            y2 = y
-
-            rectangles[pixel] = (x1, y1, x2, y2)
-
-        return rectangles
+        return color_box_map
 
     @staticmethod
     # box - x1,y1,x2,y2
